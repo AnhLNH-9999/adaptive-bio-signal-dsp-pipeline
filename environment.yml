@@ -1,0 +1,28 @@
+name: eeg-dsp-pipeline
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+  - numpy>=1.24
+  - scipy>=1.10
+  - cython>=3.0
+  - pywavelets>=1.4
+  - matplotlib>=3.7
+  - jupyter
+  - notebook
+  - ipykernel
+  - nbformat
+  - nbclient
+  - pip
+  - pip:
+      - mne>=1.5
+      - torch>=2.1
+      # optional, uncomment as needed (see requirements.txt for details):
+      # - brevitas>=0.10
+      # - hls4ml
+      # - moabb
+
+# Usage:
+#   conda env create -f environment.yml
+#   conda activate eeg-dsp-pipeline

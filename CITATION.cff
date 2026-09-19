@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "Adaptive Bio-Signal DSP Pipeline with Hardware-Ready Fixed-Point Design"
+abstract: >
+  A real-time EEG signal-processing pipeline (RLS/LMS adaptive filtering, Wavelet
+  Transform and Common Spatial Patterns feature extraction, fixed-point Q15
+  conversion) with a lightweight neural-network branch for behavior prediction,
+  designed with FPGA/microcontroller feasibility in mind.
+authors:
+  - family-names: "Lê"
+    given-names: "Nguyễn Hoài Anh"
+version: 0.1.0
+date-released: 2026-09-18
+license: MIT
+repository-code: "https://github.com/<your-username>/<your-repo>"
+
+# Notes:
+# - Vietnamese names don't map perfectly onto the family-names/given-names split
+#   this format expects; adjust the two fields above to however you want your
+#   name to appear in a citation.
+# - Update `repository-code` once the GitHub repo exists, and bump `version` /
+#   `date-released` on each tagged release (e.g. after each week's checkpoint).

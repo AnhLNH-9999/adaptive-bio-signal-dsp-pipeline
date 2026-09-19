@@ -1,0 +1,29 @@
+# Core pipeline dependencies (Weeks 1-6: filters, features, fixed-point, MACs analysis)
+numpy>=1.24
+scipy>=1.10
+Cython>=3.0
+PyWavelets>=1.4
+mne>=1.5
+matplotlib>=3.7
+
+# Notebook / demo
+jupyter>=1.0
+notebook>=7.0
+ipykernel>=6.25
+nbformat>=5.9
+nbclient>=0.9
+
+# Week 7: neural-network branch
+torch>=2.1
+
+# --- Optional, only needed for specific stages ---
+# Quantization-aware training (pick ONE, matching the framework above):
+#   brevitas>=0.10      # if using PyTorch
+#   qkeras               # if using TensorFlow/Keras instead of torch
+#
+# Hardware-feasibility estimation tools (not required to run the pipeline itself):
+#   hls4ml
+#   tensorflow>=2.14      # only if using the TensorFlow/Keras path instead of torch
+#
+# Public-dataset helper (alternative to mne's built-in fetchers):
+#   moabb
