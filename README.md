@@ -10,6 +10,7 @@ behavior prediction, designed from the start with FPGA/microcontroller feasibili
 ## Table of contents
 
 - [Quick start](#quick-start)
+  - [Run the benchmark / weekly scripts](#run-the-benchmark--weekly-scripts)
 - [Project structure](#project-structure)
 - [What this pipeline does](#what-this-pipeline-does)
 - [Documentation](#documentation)
@@ -20,8 +21,8 @@ behavior prediction, designed from the start with FPGA/microcontroller feasibili
 ## Quick start
 
 ```bash
-git clone https://github.com/<your-username>/<your-repo>.git
-cd <your-repo>
+git clone https://github.com/AnhLNH-9999/adaptive-bio-signal-dsp-pipeline.git
+cd adaptive-bio-signal-dsp-pipeline
 
 python -m venv .venv
 source .venv/bin/activate        # Windows: .venv\Scripts\activate
@@ -37,19 +38,44 @@ MACs/second — end to end in a couple of minutes.
 To run on the real dataset (BCI Competition IV-2a) instead, see
 [`docs/USER_GUIDE.md`](docs/USER_GUIDE.md).
 
+### Run the benchmark / weekly scripts
+
+All scripts are run **from the repository root** (they add `src/filters` to `sys.path`):
+
+```bash
+# Week 1-2: LMS / RLS speed, pure Python vs. Cython
+python benchmarks/benchmark_lms.py
+python benchmarks/benchmark_all.py
+
+# Week 4: train CSP on BCI Competition IV-2a (downloads ~subject 1 via moabb on first run)
+python scripts/week4/day1_csp.py
+
+# Week 6: theoretical MACs/sample and MACs/second for N = 8 taps, fs = 250 Hz
+python scripts/week6/day1_macs_formula.py
+```
+
+The Cython benchmarks expect the compiled extensions `lms_cython` and `rls_cython` in `src/filters/`
+(build with `python setup.py build_ext --inplace`, see the User Guide).
+
 ## Project structure
 
 ```
 .
-├── data/                 # downloaded datasets (gitignored, not committed)
+├── benchmarks/
+│   ├── benchmark_lms.py      # LMS: Python thuần vs. Cython (Week 1)
+│   └── benchmark_all.py      # LMS + RLS: Python thuần vs. Cython (Week 2)
+├── scripts/
+│   ├── week4/day1_csp.py     # train CSP on BNCI2014_001 (subject 1), save csp_and_split.pkl
+│   └── week6/day1_macs_formula.py  # theoretical MACs/sample for LMS (2N) vs. RLS (4N^2)
 ├── src/
-│   ├── filters/          # LMS, RLS, fixed-point (Q15) conversion, MACs counting
+│   ├── filters/          # lms.py, lms_cython.pyx, rls.py, rls_cython.pyx, fixed-point (Q15), eval_utils.py
 │   ├── features/         # Wavelet Transform, CSP, Online Inference Engine
 │   └── models/           # neural-network branch (EEGNet-style CNN, QAT)
 ├── notebooks/
 │   └── demo.ipynb        # self-contained demo — fastest way to see it work
 ├── tests/                # unit tests
-├── results/              # generated metrics, plots, comparison tables
+├── results/              # generated metrics, plots, comparison tables (gitignored)
+├── data/                 # downloaded datasets (gitignored, not committed)
 ├── docs/
 │   └── USER_GUIDE.md     # setup, usage, configuration reference
 ├── requirements.txt

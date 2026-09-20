@@ -11,13 +11,11 @@ authors:
   - family-names: "Lê"
     given-names: "Nguyễn Hoài Anh"
 version: 0.1.0
-date-released: 2026-09-18
+date-released: 2026-09-20
 license: MIT
-repository-code: "https://github.com/<your-username>/<your-repo>"
+repository-code: "https://github.com/AnhLNH-9999/adaptive-bio-signal-dsp-pipeline"
 
 # Notes:
 # - Vietnamese names don't map perfectly onto the family-names/given-names split
 #   this format expects; adjust the two fields above to however you want your
 #   name to appear in a citation.
-# - Update `repository-code` once the GitHub repo exists, and bump `version` /
-#   `date-released` on each tagged release (e.g. after each week's checkpoint).

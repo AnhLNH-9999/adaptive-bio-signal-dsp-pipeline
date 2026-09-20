@@ -4,6 +4,8 @@ scipy>=1.10
 Cython>=3.0
 PyWavelets>=1.4
 mne>=1.5
+scikit-learn>=1.3
+moabb>=1.0
 matplotlib>=3.7
 
 # Notebook / demo
@@ -25,5 +27,3 @@ torch>=2.1
 #   hls4ml
 #   tensorflow>=2.14      # only if using the TensorFlow/Keras path instead of torch
 #
-# Public-dataset helper (alternative to mne's built-in fetchers):
-#   moabb

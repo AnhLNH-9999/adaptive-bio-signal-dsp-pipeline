@@ -17,11 +17,12 @@ dependencies:
   - pip
   - pip:
       - mne>=1.5
+      - scikit-learn>=1.3
+      - moabb>=1.0
       - torch>=2.1
       # optional, uncomment as needed (see requirements.txt for details):
       # - brevitas>=0.10
       # - hls4ml
-      # - moabb
 
 # Usage:
 #   conda env create -f environment.yml
