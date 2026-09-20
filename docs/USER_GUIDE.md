@@ -78,7 +78,33 @@ Both scripts use a fixed seed (`np.random.seed(0)`), 5000 samples, `N = 8` taps,
 | `lms_filter` / `lms_filter_cy` | `(d, x_ref, mu, N)` | `(e, w)` — error signal, final weights |
 | `rls_filter` / `rls_filter_cy` | `(d, x_ref, lam, N)` | `(e, w)` |
 
-### 4.3 Week 4 — CSP on the real dataset
+### 4.3 Filter tests (Weeks 1–2)
+
+These are plain scripts (not pytest); each saves a plot under `results/`:
+
+| Script | What it does | Output |
+| --- | --- | --- |
+| `tests/test_lms_synthetic.py` | LMS on a 10 Hz sine + white noise, `mu=0.05`, `N=4`; prints RMS error of first vs. last 10 % | `results/lms_synthetic_error.png` |
+| `tests/test_rls_synthetic.py` | Same signal, RLS with `lambda ∈ {0.90, 0.95, 0.99, 0.995, 1.0}`, `N=4` (0.90 diverges on purpose) | `results/rls_lambda_sweep.png` |
+| `tests/test_lms_real_eeg.py` | Real EEG (BNCI2014_001, subject 1, channel C3, 10 s) with an injected 50 Hz tone; LMS `mu=0.01`, `N=4`; spectrum before/after | `results/lms_real_eeg_spectrum.png` |
+| `tests/test_rls_vs_lms_real_eeg.py` | Same contaminated EEG; LMS (`mu=0.01`) vs. RLS (`lambda=0.99`) smoothed squared-error curves | `results/rls_vs_lms_real_eeg.png` |
+
+```bash
+python tests/test_lms_synthetic.py
+python tests/test_rls_synthetic.py
+python tests/test_lms_real_eeg.py
+python tests/test_rls_vs_lms_real_eeg.py
+```
+
+The two `*_real_eeg.py` scripts download the dataset through `moabb` on first run. The dataset is
+already notch-filtered at 50 Hz, so the scripts inject a known 50 Hz tone (amplitude 2× signal std)
+to test the filter in a controlled way.
+
+`src/filters/rls.py` implements `rls_filter(d, x_ref, lam, N, delta=1e-2)` with the same
+`(e, w)` interface as `lms_filter`; `delta` sets the initial inverse-correlation matrix
+`P = I / delta`, and `P` is re-symmetrised each step for numerical stability.
+
+### 4.4 Week 4 — CSP on the real dataset
 
 ```bash
 python scripts/week4/day1_csp.py
@@ -91,7 +117,7 @@ python scripts/week4/day1_csp.py
 - Writes `csp_and_split.pkl` (CSP object + train/test arrays) in the current directory for the
   Day-2 classifier script to reuse. `*.pkl` is gitignored.
 
-### 4.4 Week 6 — MACs formula
+### 4.5 Week 6 — MACs formula
 
 ```bash
 python scripts/week6/day1_macs_formula.py
@@ -102,7 +128,7 @@ Prints MACs/sample (`LMS = 2N`, `RLS = 4N²`, N = 8) and MACs/second at `fs = 25
 the repository root with `src/filters` importable, e.g.
 `PYTHONPATH=src/filters python scripts/week6/day1_macs_formula.py`.
 
-### 4.5 Full pipeline entry points (planned)
+### 4.6 Full pipeline entry points (planned)
 
 ```bash
 # 1. Download the BCI Competition IV-2a dataset into ./data/
@@ -135,7 +161,7 @@ Each command writes its output (arrays, metrics, plots) under `results/`.
 | `N` (filter order / taps) | Length of the adaptive filter | LMS, RLS | 8 (benchmarks) – 32 |
 | `mu` (μ, step size) | LMS learning rate | LMS | 0.01 (benchmarks); 0.001–0.05 |
 | `lambda` (λ, forgetting factor) | How quickly RLS "forgets" old samples | RLS | 0.99 (benchmarks); 0.95–0.999 |
-| `delta` | Initial value for RLS's inverse covariance matrix | RLS | 1.0 (rarely needs changing) |
+| `delta` | Initial value for RLS's inverse covariance matrix (`P = I/delta`) | RLS (`rls.py`) | 1e-2 (default in `rls_filter`) |
 | Q-format | Fixed-point format for quantization | `fixed_point.py` | Q15 / Q1.15 (1 sign bit, 15 fractional bits) |
 | Normalization range | Range signals are scaled to before quantizing | `fixed_point.py` | `[-1, 1)` — required to avoid overflow |
 | `wavelet` | Wavelet family | Wavelet feature extraction | `db4` |
@@ -174,5 +200,5 @@ results/
   (Linux), Xcode command-line tools (macOS), or the Microsoft C++ Build Tools (Windows), then retry.
 - **`ModuleNotFoundError: lms_cython` / `rls_cython`.** The Cython extensions aren't built yet —
   see §4.1 — or you're not running from the repository root.
-- **`ModuleNotFoundError: eval_utils`.** Run with `PYTHONPATH=src/filters` (see §4.4).
+- **`ModuleNotFoundError: eval_utils`.** Run with `PYTHONPATH=src/filters` (see §4.5).
 - **`day1_csp.py` is slow the first time.** It's downloading the dataset; later runs use the cache.

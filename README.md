@@ -47,6 +47,12 @@ All scripts are run **from the repository root** (they add `src/filters` to `sys
 python benchmarks/benchmark_lms.py
 python benchmarks/benchmark_all.py
 
+# Week 1-2: filter tests (plots are written to results/)
+python tests/test_lms_synthetic.py
+python tests/test_rls_synthetic.py
+python tests/test_lms_real_eeg.py          # downloads BNCI2014_001 subject 1 on first run
+python tests/test_rls_vs_lms_real_eeg.py
+
 # Week 4: train CSP on BCI Competition IV-2a (downloads ~subject 1 via moabb on first run)
 python scripts/week4/day1_csp.py
 
@@ -68,12 +74,16 @@ The Cython benchmarks expect the compiled extensions `lms_cython` and `rls_cytho
 │   ├── week4/day1_csp.py     # train CSP on BNCI2014_001 (subject 1), save csp_and_split.pkl
 │   └── week6/day1_macs_formula.py  # theoretical MACs/sample for LMS (2N) vs. RLS (4N^2)
 ├── src/
-│   ├── filters/          # lms.py, lms_cython.pyx, rls.py, rls_cython.pyx, fixed-point (Q15), eval_utils.py
+│   ├── filters/          # rls.py (RLS, N taps), lms.py, *_cython.pyx, fixed-point (Q15), eval_utils.py
 │   ├── features/         # Wavelet Transform, CSP, Online Inference Engine
 │   └── models/           # neural-network branch (EEGNet-style CNN, QAT)
 ├── notebooks/
 │   └── demo.ipynb        # self-contained demo — fastest way to see it work
-├── tests/                # unit tests
+├── tests/
+│   ├── test_lms_synthetic.py        # LMS on a 10 Hz sine + noise  -> results/lms_synthetic_error.png
+│   ├── test_rls_synthetic.py        # RLS lambda sweep             -> results/rls_lambda_sweep.png
+│   ├── test_lms_real_eeg.py         # LMS 50 Hz removal on BNCI2014_001 C3 -> results/lms_real_eeg_spectrum.png
+│   └── test_rls_vs_lms_real_eeg.py  # RLS vs LMS convergence on real EEG   -> results/rls_vs_lms_real_eeg.png
 ├── results/              # generated metrics, plots, comparison tables (gitignored)
 ├── data/                 # downloaded datasets (gitignored, not committed)
 ├── docs/
