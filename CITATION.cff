@@ -5,19 +5,25 @@ title: "Adaptive Bio-Signal DSP Pipeline with Hardware-Ready Fixed-Point Design"
 abstract: >
   A real-time EEG signal-processing pipeline (RLS/LMS adaptive filtering, Wavelet
   Transform and Common Spatial Patterns feature extraction, fixed-point Q15
-  conversion) with a lightweight neural-network branch for behavior prediction,
-  designed with FPGA/microcontroller feasibility in mind.
+  conversion) with a lightweight neural-network branch (EEGNet-Lite, quantisation-
+  aware training), designed with FPGA/microcontroller feasibility in mind.
 authors:
   - family-names: "Lê"
     given-names: "Nguyễn Hoài Anh"
+    alias: "AnhLNH-9999"
+keywords:
+  - EEG
+  - adaptive filtering
+  - LMS
+  - RLS
+  - wavelet
+  - CSP
+  - fixed-point
+  - Q15
+  - EEGNet
+  - quantization-aware training
 version: 0.1.0
-date-released: 2026-09-18
+date-released: 2026-09-20
 license: MIT
-repository-code: "https://github.com/<your-username>/<your-repo>"
-
-# Notes:
-# - Vietnamese names don't map perfectly onto the family-names/given-names split
-#   this format expects; adjust the two fields above to however you want your
-#   name to appear in a citation.
-# - Update `repository-code` once the GitHub repo exists, and bump `version` /
-#   `date-released` on each tagged release (e.g. after each week's checkpoint).
+repository-code: "https://github.com/AnhLNH-9999/adaptive-bio-signal-dsp-pipeline"
+url: "https://github.com/AnhLNH-9999/adaptive-bio-signal-dsp-pipeline"
