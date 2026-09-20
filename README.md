@@ -84,8 +84,14 @@ stage: LMS, RLS, wavelet features, Q15 + SQNR, MACs/second. For the real dataset
 | Runtime, 5000 samples, N = 8 (pure Python) | 12.23 ms | 55.41 ms | — |
 | Runtime, same (Cython) | 0.11 ms | 0.79 ms | — |
 | MACs/second, N = 8, fs = 250 Hz (theory / counted) | 4 000 / 4 000 | 64 000 / 40 000 | ≈ 760 000 |
-| SQNR after Q15 quantisation | 50.3 dB (≥ 30 dB target) | — | > 30 dB (weights) |
-| Test accuracy (subject 1, left vs right hand) | LDA baseline 87.4 % | | float32 88.5 % · QAT 96.6 % |
+| SQNR after 16-bit quantisation | 50.3 dB (≥ 30 dB target) | — | > 30 dB (weights) |
+| Inference latency (one 4 s window) | — | 6.98 ms | 4.4 ms |
+
+| Classifier (subject 1, left vs right hand) | Test accuracy |
+| --- | --- |
+| LDA on Wavelet (C3) + CSP features | 87.4 % |
+| EEGNet-Lite float32 | 88.5 % |
+| EEGNet-Lite QAT 16-bit | 96.6 % |
 
 Take-aways: RLS converges in ~250 samples vs. many more for LMS but costs O(N²) per sample; λ < 0.95
 triggers covariance wind-up on a single-tone reference. Normalising the input into [−1, 1) before

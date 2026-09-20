@@ -10,7 +10,7 @@ def test_lms_no_nan():
 
 
 def test_lms_converges_on_known_signal():
-    fs, t = 250, np.arange(0, 2, 1 / 250)
+    t = np.arange(0, 2, 1 / 250)
     rng = np.random.default_rng(0)
     d = 2.0 * np.sin(2 * np.pi * 10 * t) + 0.1 * rng.standard_normal(len(t))
     x_ref = np.sin(2 * np.pi * 10 * t)
