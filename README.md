@@ -1,5 +1,6 @@
 # Adaptive Bio-Signal DSP Pipeline with Hardware-Ready Fixed-Point Design
 
+[![CI](https://github.com/AnhLNH-9999/adaptive-bio-signal-dsp-pipeline/actions/workflows/ci.yml/badge.svg)](https://github.com/AnhLNH-9999/adaptive-bio-signal-dsp-pipeline/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue)](pyproject.toml)
 [![Cite](https://img.shields.io/badge/cite-CITATION.cff-green)](CITATION.cff)
